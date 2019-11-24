@@ -8,6 +8,13 @@ Build in wasm and use it with TypeScript with webpack.
 - Rust
 - TypeScript
 - webpack
+- WebAssembly
+
+## References
+
+- [WebAssemblyで遊んでみる〜Rust+wasm-pack環境構築編〜](https://toranoana-lab.hatenablog.com/entry/2019/07/26/174559)
+- [Implementing Conway's Game of Life Design](https://rustwasm.github.io/docs/book/game-of-life/implementing.html#rendering-with-javascript)
+- [wasm-bindgen + wasm-pack + webpack で フロントエンド -- Qiita](https://qiita.com/mizchi/items/dc089c28e4d3afa78207)
 
 ## License
 
