@@ -1,0 +1,41 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - uses: raftario/setup-rust-action@v1
+    - name: Setup rust tools
+      run: |
+        curl https://sh.rustup.rs -sSf | sh
+        curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+        cargo install cargo-generate
+    - name: Setup rust tools
+      run: |
+        cd wasm-game-of-life
+        cargo build
+        wasm-pack build
+        cd ..
+    - name: Install dependencies
+      run: yarn --frozen-lockfile --ignore-optional
+      env:
+        CI: 'true'
+    - name: Build
+      run: yarn build
+      env:
+        CI: 'true'
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./dist
